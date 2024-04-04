@@ -1,5 +1,6 @@
 ﻿using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
+using PassIn.Exceptions;
 using PassIn.Infrastructure;
 
 namespace PassIn.Application.UseCases.Events.Register
@@ -32,12 +33,12 @@ namespace PassIn.Application.UseCases.Events.Register
         {
             if(request.MaximumAttendees <= 0)
             {
-                throw new ArgumentException("The Maximum attendees is invalid.");
+                throw new ErrorOnValidationException("The Maximum attendees is invalid.");
             }
 
             if (string.IsNullOrWhiteSpace(request.Title))
             {
-                throw new ArgumentException("Invalid Title.");
+                throw new ErrorOnValidationException("Invalid Title.");
             }
         }
     }

@@ -15,22 +15,11 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public IActionResult Register([FromBody] RequestEventJson request) 
     {
-    try
-    {
         var useCase = new RegisterEventsUseCase();
 
         var response = useCase.Execute(request);
 
         return Created(string.Empty, response);
-    } 
-    catch (PassInException ex)
-    {
-        return BadRequest(new ResponseErrorJson(ex.Message));
-    }
-    catch
-    {
-        return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorJson("Unknown error."));
-    }
 }
     [HttpGet]
     [Route("{id}")]
@@ -38,21 +27,10 @@ public class EventsController : ControllerBase
     [ProducesResponseType(typeof(ResponseEventJson), StatusCodes.Status404NotFound)]
     public IActionResult GetById([FromRoute] Guid id)
     {
-        try
-        {
             var useCase = new GetEventByIdUseCase();
 
             var response = useCase.Execute(id);
 
             return Ok(response);
-        }
-        catch (PassInException ex)
-        {
-            return NotFound(new ResponseErrorJson(ex.Message));
-        }
-        catch
-        {
-            return StatusCode(StatusCodes.Status500InternalServerError, new ResponseErrorJson("Unknown error."));
-        }
     }
 }
