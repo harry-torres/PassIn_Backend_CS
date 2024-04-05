@@ -19,7 +19,7 @@ public class DoAttendeeCheckInUseCase
         var entity = new CheckIn
         {
             Attendee_Id = attendeeId,
-            CreatedAt = DateTime.UtcNow,
+            Created_At = DateTime.UtcNow,
         };
 
         _dbContext.CheckIns.Add(entity);
@@ -35,7 +35,7 @@ public class DoAttendeeCheckInUseCase
     {
         var existsAttendee = _dbContext.Attendees.Any(attendee => attendee.Id == attendeeId);
     
-        if(existsAttendee)
+        if(!existsAttendee)
         {
             throw new NotFoundException("Attendee not found.");
         }

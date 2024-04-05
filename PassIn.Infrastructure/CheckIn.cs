@@ -8,11 +8,11 @@ public class CheckIn
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
 
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+    public DateTime Created_At { get; set; } = DateTime.UtcNow;
 
     [Required]
     public Guid Attendee_Id { get; set; }
 
-    //[ForeignKey("AttendeeId")]
-    //public Attendee Attendee { get; set; }
+    [ForeignKey("Attendee_Id")]
+    public Attendee Attendee { get; set; } = default!;
 }

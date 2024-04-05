@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PassIn.Infrastructure;
 public class Attendee
@@ -15,5 +16,7 @@ public class Attendee
     [Required]
     public Guid Event_Id { get; set; }
     public DateTime Created_At { get; set; }
+    public CheckIn? CheckIn{ get; set; }
+
 
 }

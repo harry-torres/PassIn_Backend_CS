@@ -18,6 +18,7 @@ public class GetAllAttendeesByEventIdUseCase
         //var attendees = _dbContext.Attendees.Where(attendee => attendee.Event_Id == eventId).ToList();
 
         var eventEntity = _dbContext.Events.Include(ev => ev.Attendees)
+            .ThenInclude(ev => ev.CheckIn)
             .FirstOrDefault(ev => ev.Id == eventId);
 
         if (eventEntity is null)
@@ -30,7 +31,8 @@ public class GetAllAttendeesByEventIdUseCase
                 Id = attendee.Id,
                 Name = attendee.Name,
                 Email = attendee.Email,
-                CreatedAt = attendee.Created_At
+                CreatedAt = attendee.Created_At,
+                CheckedInAt = attendee.CheckIn?.Created_At
             }).ToList()
         };
     }
