@@ -3,7 +3,7 @@ using PassIn.Communication.Responses;
 using PassIn.Exceptions;
 using PassIn.Infrastructure;
 
-namespace PassIn.Application.UseCases.Events.Attendee.GetAllByEventId;
+namespace PassIn.Application.UseCases.Attendees.GetAllByEventId;
 
 public class GetAllAttendeesByEventIdUseCase
 {
@@ -16,14 +16,15 @@ public class GetAllAttendeesByEventIdUseCase
     public ResponseAllAttendeesJson Execute(Guid eventId)
     {
         //var attendees = _dbContext.Attendees.Where(attendee => attendee.Event_Id == eventId).ToList();
-        
+
         var eventEntity = _dbContext.Events.Include(ev => ev.Attendees)
             .FirstOrDefault(ev => ev.Id == eventId);
-        
+
         if (eventEntity is null)
             throw new NotFoundException("Event not found.");
 
-        return new ResponseAllAttendeesJson {
+        return new ResponseAllAttendeesJson
+        {
             Attendees = eventEntity.Attendees.Select(attendee => new ResponseAttendeeJson
             {
                 Id = attendee.Id,

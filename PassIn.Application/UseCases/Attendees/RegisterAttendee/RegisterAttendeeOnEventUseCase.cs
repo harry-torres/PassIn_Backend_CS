@@ -4,7 +4,7 @@ using PassIn.Exceptions;
 using PassIn.Infrastructure;
 using System.Net.Mail;
 
-namespace PassIn.Application.UseCases.Events.RegisterAttendee;
+namespace PassIn.Application.UseCases.Attendees.RegisterAttendee;
 
 public class RegisterAttendeeOnEventUseCase
 {
@@ -17,13 +17,13 @@ public class RegisterAttendeeOnEventUseCase
     {
         Validate(eventId, request);
 
-        var entity = new PassIn.Infrastructure.Attendee
+        var entity = new Infrastructure.Attendee
         {
             Email = request.Email,
             Name = request.Name,
             Event_Id = eventId,
-        //  gets time in local timezone of the server... incompatible with cloud servers
-        //  Created_At = DateTime.Now,
+            //  gets time in local timezone of the server... incompatible with cloud servers
+            //  Created_At = DateTime.Now,
             Created_At = DateTime.UtcNow
         };
 
@@ -42,10 +42,10 @@ public class RegisterAttendeeOnEventUseCase
         if (eventEntity is null)
             throw new NotFoundException("Event not found.");
 
-        if(string.IsNullOrWhiteSpace(request.Name))
+        if (string.IsNullOrWhiteSpace(request.Name))
             throw new ErrorOnValidationException("Invalid name.");
 
-        if(EmailIsValid(request.Email) is false)
+        if (EmailIsValid(request.Email) is false)
             throw new ErrorOnValidationException("Invalid email.");
 
         var attendeeAlreadyRegistered = _dbContext.Attendees

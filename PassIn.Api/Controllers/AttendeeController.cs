@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PassIn.Application.UseCases.Events.Attendee.GetAllByEventId;
-using PassIn.Application.UseCases.Events.RegisterAttendee;
+using PassIn.Application.UseCases.Attendees.RegisterAttendee;
+using PassIn.Application.UseCases.Attendees.GetAllByEventId;
 using PassIn.Communication.Requests;
 using PassIn.Communication.Responses;
 
