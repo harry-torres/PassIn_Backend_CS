@@ -1,23 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace PassIn.Infrastructure;
 public class Attendee
 {
     [Key]
-    public string Id { get; set; }
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     [Required]
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
 
     [Required]
-    public string Email { get; set; }
+    public string Email { get; set; } = string.Empty;
 
     [Required]
-    public string EventId { get; set; }
+    public Guid Event_Id { get; set; }
+    public DateTime Created_At { get; set; }
 
-    [ForeignKey("EventId")]
-    public Event Event { get; set; }
-
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
